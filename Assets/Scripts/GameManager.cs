@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public Text scoreText;
     public Text ballsText;
     public Text levelText;
+    public Text highScoreText;
 
     public GameObject panelMenu;
     public GameObject panelPlay;
@@ -78,6 +79,7 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         SwitchState(State.MENU);
+        PlayerPrefs.DeleteKey("highscore");
     }
 
     public void SwitchState(State newState, float delay = 0f)
@@ -101,6 +103,7 @@ public class GameManager : MonoBehaviour
         {
             case State.MENU:
                 Cursor.visible = true;
+                highScoreText.text = "HIGH SCORE: " + PlayerPrefs.GetInt("highscore");
                 panelMenu.SetActive(true);
                 break;
             case State.INIT:
@@ -138,7 +141,10 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case State.GAMEOVER:
-                // if (Score > PlayerPrefs)
+                if (Score > PlayerPrefs.GetInt("highscore"))
+                {
+                    PlayerPrefs.SetInt("highscore", Score);
+                }
                 panelGameOver.SetActive(true);
                 break;
         }
