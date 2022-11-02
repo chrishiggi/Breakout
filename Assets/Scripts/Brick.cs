@@ -11,7 +11,7 @@ public class Brick : MonoBehaviour
 
     Material _originalMaterial;
     Renderer _renderer;
-    // Start is called before the first frame update
+
     void Start()
     {
         transform.Rotate(rotator * (transform.position.x + transform.position.y) * 0.1f);
@@ -28,7 +28,6 @@ public class Brick : MonoBehaviour
     private void OnCollisionEnter(Collision collision) 
     {
         hits--;
-
         // Score points
         if (hits <= 0) {
             GameManager.Instance.Score += points;
